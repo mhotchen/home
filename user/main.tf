@@ -40,8 +40,8 @@ resource "aws_iam_user_group_membership" "console_user_groups" {
 }
 
 output "password" {
-  value = "User: ${aws_iam_user.console_user.name}\nPassword: echo \"${aws_iam_user_login_profile.console_user_login_profile.encrypted_password}\" | base64 --decode | gpg --decrypt"
+  value = "User: ${aws_iam_user.console_user.name}\nPassword:\necho \"${aws_iam_user_login_profile.console_user_login_profile.encrypted_password}\" | base64 --decode | gpg --decrypt"
 }
 output "access_token" {
-  value = "User: ${aws_iam_user.cli_user.name}\nAccess ID: ${aws_iam_access_key.cli_user_access_key.id}\nAccess key: echo \"${aws_iam_access_key.cli_user_access_key.encrypted_secret}\" | base64 --decode | gpg --decrypt"
+  value = "User: ${aws_iam_user.cli_user.name}\nAccess ID: ${aws_iam_access_key.cli_user_access_key.id}\nAccess key:\necho \"${aws_iam_access_key.cli_user_access_key.encrypted_secret}\" | base64 --decode | gpg --decrypt"
 }
