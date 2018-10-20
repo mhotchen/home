@@ -8,10 +8,4 @@ First follow the `README.md` in the parent directory then open `index.html` in y
 
 # Releasing
 
-```bash
-aws s3 sync --dryrun public/ s3://mhn-me/
-# Stop here to review your changes.
-aws s3 sync public/ s3://mhn-me/
-aws s3 ls mhn-me
-# Stop here to test.
-```
+The latest version in `master` is mirrored on production through the build.
