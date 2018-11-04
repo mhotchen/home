@@ -10,8 +10,6 @@ variable "group" {
   type = "string"
 }
 
-# CLI login-account
-
 resource "aws_iam_user" "user" {
   name          = "${var.name}"
   path          = "/"

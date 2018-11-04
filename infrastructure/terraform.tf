@@ -26,9 +26,10 @@ resource "aws_dynamodb_table" "terraform-state-lock" {
 
 terraform {
   backend "s3" {
+    region = "eu-west-2"
+    profile = "personal"
     encrypt = true
     bucket = "64884c6f-e501-41ae-bbdc-b17b81285d81"
-    region = "eu-west-2"
     dynamodb_table = "terraform-state-lock"
     key = "terraform.tfstate"
   }
