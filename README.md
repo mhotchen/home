@@ -18,6 +18,6 @@ Next execute the following commands:
 ```bash
 # Uses your AWS access token to check for repository permissions.
 git config --global credential.UseHttpPath true
-git config --local credential.helper '!aws codecommit credential-helper --profile personal $@'
+git config --global credential.helper '!aws codecommit credential-helper --profile personal $@'
 git clone https://git-codecommit.eu-west-2.amazonaws.com/v1/repos/Repo personal
 ```
