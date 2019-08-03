@@ -32,6 +32,7 @@ export const build: Handler = async (event: SNSEvent, context: Context) => {
           Key: relativePath,
           ContentType: contentType(relativePath) || 'application/octet',
           Body: (await codeCommit.getBlob({ repositoryName, blobId }).promise()).content,
+          CacheControl: 'max-age=3155760000', // 100 years
         })
         .promise()
     )
