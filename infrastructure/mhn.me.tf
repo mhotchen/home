@@ -59,14 +59,6 @@ resource "aws_route53_record" "cname-www-mhn-me" {
   ttl     = "3600"
 }
 
-resource "aws_route53_record" "cname-diff-mhn-me" {
-  zone_id = "${aws_route53_zone.zone.id}"
-  name    = "diff"
-  type    = "CNAME"
-  records = ["opendiff.herokuapp.com"]
-  ttl     = "3600"
-}
-
 resource "aws_route53_record" "txt-mhn-me" {
   zone_id = "${aws_route53_zone.zone.id}"
   name    = ""
