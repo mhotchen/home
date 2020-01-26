@@ -1,6 +1,6 @@
 resource "aws_s3_bucket" "terraform-state" {
   bucket = "64884c6f-e501-41ae-bbdc-b17b81285d81"
-  acl = "private"
+  acl    = "private"
   region = "eu-west-2"
 
   versioning {
@@ -13,9 +13,9 @@ resource "aws_s3_bucket" "terraform-state" {
 }
 
 resource "aws_dynamodb_table" "terraform-state-lock" {
-  name = "terraform-state-lock"
-  hash_key = "LockID"
-  read_capacity = 1
+  name           = "terraform-state-lock"
+  hash_key       = "LockID"
+  read_capacity  = 1
   write_capacity = 1
 
   attribute {
@@ -26,11 +26,12 @@ resource "aws_dynamodb_table" "terraform-state-lock" {
 
 terraform {
   backend "s3" {
-    region = "eu-west-2"
-    profile = "personal"
-    encrypt = true
-    bucket = "64884c6f-e501-41ae-bbdc-b17b81285d81"
+    region         = "eu-west-2"
+    profile        = "personal"
+    encrypt        = true
+    bucket         = "64884c6f-e501-41ae-bbdc-b17b81285d81"
     dynamodb_table = "terraform-state-lock"
-    key = "terraform.tfstate"
+    key            = "terraform.tfstate"
   }
 }
+
