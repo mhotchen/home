@@ -1,0 +1,31 @@
+service:
+  name: landing-demo-mhn-me-build
+
+plugins:
+- serverless-webpack
+
+provider:
+  name: aws
+  profile: personal
+  region: eu-west-2
+  stage: prod
+  versionFunctions: false
+  accountId: 049681365170
+  runtime: nodejs12.x
+  iamRoleStatements:
+  - Effect: Allow
+    Action:
+    - s3:PutObject
+    Resource: arn:aws:s3:::landing-demo-mhn-me/*
+  - Effect: Allow
+    Action:
+    - codecommit:GetFolder
+    - codecommit:GetBlob
+    Resource: arn:aws:codecommit:${self:provider.region}:${self:provider.accountId}:Services
+
+functions:
+  build:
+    handler: handler.build
+    events:
+    - sns:
+        arn: arn:aws:sns:${self:provider.region}:${self:provider.accountId}:Services
