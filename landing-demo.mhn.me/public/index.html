@@ -15,14 +15,21 @@
 
 <form id="form">
     <label>Enter your email address:
-        <input type="email" name="email">
+        <input type="email" name="email" id="email">
     </label>
     <button type="submit" name="Submit">Submit</button>
 </form>
 <script type="text/javascript">
-    document.getElementById('form').onsubmit(event => {
+    var form = document.getElementById('form')
+    form.onsubmit = function (event) {
         event.preventDefault()
-        console.log(event)
-    })
+        var xhr = new XMLHttpRequest()
+        xhr.addEventListener('load', function () {
+            form.innerHTML = '<h1>Submitted!</h1>'
+        })
+        xhr.open('POST', 'https://hi5ihfykm0.execute-api.eu-west-2.amazonaws.com/prod/answers')
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({ email: document.getElementById('email').value }))
+    }
 </script>
 </body>
