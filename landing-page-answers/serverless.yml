@@ -34,3 +34,4 @@ functions:
       - http:
           method: post
           path: /answers
+          cors: true
