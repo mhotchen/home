@@ -1,9 +1,7 @@
 # Matthew Hotchen
-kljasdf
 
 * m@mhn.me
 * [Me](https://mhn.me)
-* [LinkedIn](https://www.linkedin.com/in/stdout)
 * [Github](https://github.com/mhotchen)
 
 ## Quit Genius
