@@ -43,14 +43,6 @@ resource "aws_route53_zone" "zone" {
   name = "${local.domain-name}."
 }
 
-resource "aws_route53_record" "mx-protonmail" {
-  zone_id = aws_route53_zone.zone.id
-  name    = ""
-  type    = "MX"
-  records = ["10 mail.protonmail.ch"]
-  ttl     = "3600"
-}
-
 resource "aws_route53_record" "cname-www-mhn-me" {
   zone_id = aws_route53_zone.zone.id
   name    = "www"
@@ -63,19 +55,63 @@ resource "aws_route53_record" "txt-mhn-me" {
   zone_id = aws_route53_zone.zone.id
   name    = ""
   type    = "TXT"
-  records = [
-    "protonmail-verification=85ac5c02a22a2021da9528ae43c74e9d8bde0c14",
-    "v=spf1 include:_spf.protonmail.ch include:_spf.freeagent.com ip4:65.39.178.0/24 a mx ~all",
-    "freeagent-domain-verification=_uurcBg7G8cMTKkeDFJL",
-  ]
+  records = ["v=spf1 include:amazonses.com ~all"]
   ttl = "900"
 }
 
-resource "aws_route53_record" "txt-protonmail" {
+resource "aws_route53_record" "aws-workmail-mx" {
   zone_id = aws_route53_zone.zone.id
-  name    = "protonmail._domainkey"
+  name    = ""
+  type    = "MX"
+  records = ["10 inbound-smtp.eu-west-1.amazonaws.com."]
+  ttl     = "3600"
+}
+
+resource "aws_route53_record" "aws-workmail-ses-verification" {
+  zone_id = aws_route53_zone.zone.id
+  name    = "_amazonses"
   type    = "TXT"
-  records = ["v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDE/fq2YLY/xO/asTMBFJGewrEh1fDRXQAv7euUufwWqARdV5k4kuavcHjogjH3+YQhq9uDknIlLRxr00b4NfVYcrndbm87JOVJ8UQJpOZInfmweC3Dye3qsMZ1KcnlVk/QgdKurohm+b6+TfqObhAL7OVynSw7r9GdeTt534b09wIDAQAB"]
+  records = ["H5I/wSKg8jTx7lF1wqnJ1ep4O3b1nKjkgUHIwkuL5+g="]
+  ttl     = "900"
+}
+
+resource "aws_route53_record" "aws-workmail-cname-autodiscover" {
+  zone_id = aws_route53_zone.zone.id
+  name    = "autodiscover"
+  type    = "CNAME"
+  records = ["autodiscover.mail.eu-west-1.awsapps.com."]
+  ttl     = "900"
+}
+
+resource "aws_route53_record" "aws-workmail-dkim-1" {
+  zone_id = aws_route53_zone.zone.id
+  name    = "y2jp5yyzwsgierzvsstizw367gmkpxov._domainkey"
+  type    = "CNAME"
+  records = ["y2jp5yyzwsgierzvsstizw367gmkpxov.dkim.amazonses.com."]
+  ttl     = "900"
+}
+
+resource "aws_route53_record" "aws-workmail-dkim-2" {
+  zone_id = aws_route53_zone.zone.id
+  name    = "kdgrn52yb3wdtt4pco5bka3gumc3tabj._domainkey"
+  type    = "CNAME"
+  records = ["kdgrn52yb3wdtt4pco5bka3gumc3tabj.dkim.amazonses.com."]
+  ttl     = "900"
+}
+
+resource "aws_route53_record" "aws-workmail-dkim-3" {
+  zone_id = aws_route53_zone.zone.id
+  name    = "xfb6xxqwwg3a7pqx7x42hbkpncx6o6q6._domainkey"
+  type    = "CNAME"
+  records = ["xfb6xxqwwg3a7pqx7x42hbkpncx6o6q6.dkim.amazonses.com."]
+  ttl     = "900"
+}
+
+resource "aws_route53_record" "aws-workmail-dmarc" {
+  zone_id = aws_route53_zone.zone.id
+  name    = "_dmarc"
+  type    = "TXT"
+  records = ["v=DMARC1;p=quarantine;pct=100;fo=1"]
   ttl     = "900"
 }
 
