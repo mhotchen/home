@@ -7,17 +7,17 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "aws-sdk": "^2.332.0",
+    "aws-sdk": "^2.678.0",
     "mime-types": "^2.1.21"
   },
   "devDependencies": {
     "@types/aws-lambda": "8.10.1",
-    "@types/node": "^8.0.57",
-    "serverless-webpack": "^5.1.1",
-    "source-map-support": "^0.5.6",
+    "@types/node": "^8.10.60",
+    "serverless-webpack": "^5.3.2",
+    "source-map-support": "^0.5.19",
     "ts-loader": "^4.2.0",
-    "typescript": "^2.9.2",
-    "webpack": "^4.5.0"
+    "typescript": "^3.9.2",
+    "webpack": "^4.43.0"
   },
   "author": "The serverless webpack authors (https://github.com/elastic-coders/serverless-webpack)",
   "license": "MIT"

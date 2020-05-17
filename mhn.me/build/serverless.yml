@@ -9,8 +9,10 @@ provider:
   region: eu-west-2
   stage: prod
   versionFunctions: false
-  runtime: nodejs8.10
+  runtime: nodejs12.x
+  memory: 128
   accountId: 049681365170
+  profile: personal
   iamRoleStatements:
   - Effect: Allow
     Action:
