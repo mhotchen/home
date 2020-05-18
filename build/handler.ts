@@ -14,8 +14,9 @@ export const build: SNSHandler = async event => {
     }
 
     await Promise.all([
-        generateSite('/landing-demo.mhn.me/public', 'landing-demo-mhn-me', commitRef),
-        generateSite('/mhn.me/public', 'mhn-me', commitRef),
+        generateSite('landing-demo.mhn.me/public', 'landing-demo-mhn-me', commitRef),
+        generateSite('mhn.me/public', 'mhn-me', commitRef),
+        generateSite('rtw.mhn.me/public', 'rtw-mhn-me', commitRef),
     ])
 }
 
@@ -24,26 +25,37 @@ const generateSite = async (sourceDir: string, targetBucket: string, commitRef: 
     const codeCommit = new CodeCommit
     const s3 = new S3
 
-    const folder = codeCommit
-        .getFolder({
-            repositoryName,
-            folderPath: sourceDir,
-            commitSpecifier: commitRef.commit,
-        })
-        .promise()
-
-    const fileUploads = (await folder).files
-        .map(async ({ blobId, relativePath }) =>
-            s3.putObject({
-                Bucket: targetBucket,
-                Key: relativePath,
-                ContentType: contentType(relativePath) || 'application/octet',
-                Body: (await codeCommit.getBlob({ repositoryName, blobId }).promise()).content,
-                CacheControl: 'max-age=3155760000', // 100 years
+    const uploadContents = async folderPath => {
+        const folder = await (codeCommit
+            .getFolder({
+                repositoryName,
+                folderPath: '/' + folderPath,
+                commitSpecifier: commitRef.commit,
             })
-                .promise()
+            .promise()
         )
 
-    await Promise.all(fileUploads)
+        await Promise.all(folder.subFolders
+            .map(subFolder => uploadContents(subFolder.absolutePath))
+        )
+
+        await Promise.all(folder.files
+            .map(async ({ blobId, absolutePath }) => {
+                console.log(absolutePath, sourceDir, absolutePath.replace(sourceDir, ''))
+
+                    return s3
+                        .putObject({
+                            Bucket: targetBucket,
+                            Key: absolutePath.replace(sourceDir, ''),
+                            Body: 'ttt',//(await codeCommit.getBlob({ repositoryName, blobId }).promise()).content,
+                            CacheControl: 'max-age=3155760000', // 100 years
+                        })
+                        .promise()
+                }
+            )
+        )
+    }
+
+    await uploadContents(sourceDir)
 }
 

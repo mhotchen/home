@@ -20,6 +20,7 @@ provider:
     Resource:
       - arn:aws:s3:::mhn-me/*
       - arn:aws:s3:::landing-demo-mhn-me/*
+      - arn:aws:s3:::rtw-mhn-me/*
   - Effect: Allow
     Action:
     - codecommit:GetFolder
