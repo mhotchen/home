@@ -1,5 +1,16 @@
+#/bin/bash
+
 sudo apt update
 sudo apt upgrade
-sudo apt install -y vim git
+sudo apt install -y vim git syncthing keepassx
+sudo apt autoremove
 git config --global user.email "m@mhn.me"
 git config --global user.name "Matthew Hotchen"
+systemctl --user enable syncthing.service
+systemctl --user start syncthing.service
+
+while [ ! -f ~/default/keepass.kdbx ]
+do
+	syncthing -browser-only
+	read -p "Please configure SyncThing "
+done

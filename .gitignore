@@ -1,3 +1,7 @@
 *
 !.gitignore
 !configure
+!.config
+!.config/systemd
+!.config/systemd/user
+!.config/systemd/user/default.target.wants.syncthing.service

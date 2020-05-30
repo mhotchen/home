@@ -1,0 +1,17 @@
+[Unit]
+Descryption=Syncthing - Open Source Continuous File Synchronization
+Documentation=mac:syncthing(1)
+
+[Service]
+ExecStart=/usr/bin/syncthing -no-browser -no-restart -logflags=0
+Restart=on-failure
+SuccessExitStatus=3 4
+RestartForceExitStatus=3 4
+
+# Hardening
+SystemCallArchitecture=native
+MemoryDenyWriteExecute=true
+NoNewPrivileges=true
+
+[Intall]
+WantedBy=default.target
