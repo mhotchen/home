@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 sudo apt update
 sudo apt upgrade
@@ -13,4 +13,40 @@ while [ ! -f ~/default/keepass.kdbx ]
 do
 	syncthing -browser-only
 	read -p "Please configure SyncThing "
+done
+
+if ! grep source-bashrc-d -lq .bashrc; then
+	cat <<- EOF >> .bashrc
+
+		# source-bashrc-d
+		for file in .bashrc.d/*.sh; do
+			source "\$file"
+		done
+	EOF
+fi
+
+for file in .bashrc.d/*.sh; do
+	source "$file"
+done
+
+while [ ! -f ~/.gpg2/master.key ]
+do
+	read -p "Please paste the private master GPG key in to ~/.gpg2/master.key "
+	chmod u+rw,g-rwx,o-rwx ~/.gpg2/master.key
+	gpg --import ~/.gpg2/master.key
+done
+
+
+while [ ! -f ~/.gpg2/sub.key ]
+do
+	read -p "Please paste the private sub GPG key in to ~/.gpg2/sub.key "
+	chmod u+rw,g-rwx,o-rwx ~/.gpg2/sub.key
+	gpg --import ~/.gpg2/sub.key
+done
+
+keyGrip=$(gpg --list-keys --with-keygrip | grep -A 1 "\[A\]" | grep Keygrip | awk '{print $3}')
+while [ ! -f ~/.gpg2/sshcontrol ]
+do
+	echo "$keyGrip" > .gpg2/sshcontrol
+	chmod u+rw,g-rwx,o-rwx ~/.gpg2/sshcontrol
 done
