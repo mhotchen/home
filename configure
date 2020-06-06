@@ -2,8 +2,18 @@
 
 sudo apt update
 sudo apt upgrade
-sudo apt install -y vim git syncthing keepassx
+sudo apt install --yes \
+	git \
+	keepassx \
+	krita \
+	qmapshack \
+	syncthing \
+	vim \
+	virtualbox \
+	vlc
 sudo apt autoremove
+snap install spotify
+snap install --classic intellij webstorm datagrip slack
 git config --global user.email "m@mhn.me"
 git config --global user.name "Matthew Hotchen"
 systemctl --user enable syncthing.service
