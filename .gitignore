@@ -9,3 +9,4 @@
 !.bashrc.d/*.sh
 !.gpg2
 !.gpg2/gpg-agent.conf
+!.vimrc
