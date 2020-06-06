@@ -6,6 +6,6 @@
 !.config/systemd/user
 !.config/systemd/user/default.target.wants.syncthing.service
 !.bashrc.d
-!.bashrc.d/gpg.sh
+!.bashrc.d/*.sh
 !.gpg2
 !.gpg2/gpg-agent.conf
