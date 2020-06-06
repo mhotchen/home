@@ -5,6 +5,9 @@
 !.config/systemd
 !.config/systemd/user
 !.config/systemd/user/default.target.wants.syncthing.service
+!.config/xfce4
+!.config/xfce4/terminal
+!.config/xfce4/terminal/terminalrc
 !.bashrc.d
 !.bashrc.d/*.sh
 !.gpg2
