@@ -6,8 +6,13 @@
 !.config/systemd/user
 !.config/systemd/user/default.target.wants.syncthing.service
 !.config/xfce4
+!.config/xfce4/panel
+!.config/xfce4/panel/*
 !.config/xfce4/terminal
 !.config/xfce4/terminal/terminalrc
+!.config/xfce4/xfconf
+!.config/xfce4/xfconf/xfce-perchannel-xml
+!.config/xfce4/xfconf/xfce-perchannel-xml/*.xml
 !.bashrc.d
 !.bashrc.d/*.sh
 !.gpg2
