@@ -1,6 +1,6 @@
 import { SNSHandler } from 'aws-lambda'
 import { CodeCommit, S3 } from 'aws-sdk'
-import { contentType } from 'mime-types'
+import { lookup } from 'mime-types'
 
 interface CommitRef {
     readonly commit: string,
@@ -14,9 +14,10 @@ export const build: SNSHandler = async event => {
     }
 
     await Promise.all([
-        generateSite('landing-demo.mhn.me/public', 'landing-demo-mhn-me', commitRef),
-        generateSite('mhn.me/public', 'mhn-me', commitRef),
-        generateSite('rtw.mhn.me/public', 'rtw-mhn-me', commitRef),
+        // The trailing slash is important, otherwise S3 gets very confused and fucked up.
+        generateSite('landing-demo.mhn.me/public/', 'landing-demo-mhn-me', commitRef),
+        generateSite('mhn.me/public/', 'mhn-me', commitRef),
+        generateSite('rtw.mhn.me/public/', 'rtw-mhn-me', commitRef),
     ])
 }
 
@@ -29,7 +30,7 @@ const generateSite = async (sourceDir: string, targetBucket: string, commitRef: 
         const folder = await (codeCommit
             .getFolder({
                 repositoryName,
-                folderPath: '/' + folderPath,
+                folderPath,
                 commitSpecifier: commitRef.commit,
             })
             .promise()
@@ -40,18 +41,16 @@ const generateSite = async (sourceDir: string, targetBucket: string, commitRef: 
         )
 
         await Promise.all(folder.files
-            .map(async ({ blobId, absolutePath }) => {
-                console.log(absolutePath, sourceDir, absolutePath.replace(sourceDir, ''))
-
-                    return s3
-                        .putObject({
-                            Bucket: targetBucket,
-                            Key: absolutePath.replace(sourceDir, ''),
-                            Body: 'ttt',//(await codeCommit.getBlob({ repositoryName, blobId }).promise()).content,
-                            CacheControl: 'max-age=3155760000', // 100 years
-                        })
-                        .promise()
-                }
+            .map(async ({ blobId, absolutePath }) =>
+                s3
+                    .putObject({
+                        Bucket: targetBucket,
+                        Key: absolutePath.replace(sourceDir, ''),
+                        Body: (await codeCommit.getBlob({ repositoryName, blobId }).promise()).content,
+                        ContentType: lookup(absolutePath),
+                        CacheControl: 'max-age=3155760000', // 100 years
+                    })
+                    .promise()
             )
         )
     }
