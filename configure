@@ -53,3 +53,5 @@ do
 	echo "$keyGrip" > .gpg2/sshcontrol
 	chmod u+rw,g-rwx,o-rwx ~/.gpg2/sshcontrol
 done
+
+git remote set-url origin git@github.com:mhotchen/home.git
