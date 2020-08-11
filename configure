@@ -3,11 +3,12 @@
 sudo apt update
 sudo apt upgrade
 sudo apt install --yes \
+	curl \
 	git \
 	keepassx \
 	krita \
 	qmapshack \
-	syncthing \
+	python3-gpg \
 	vim \
 	virtualbox \
 	vlc
@@ -16,13 +17,17 @@ snap install spotify
 snap install --classic intellij webstorm datagrip slack
 git config --global user.email "m@mhn.me"
 git config --global user.name "Matthew Hotchen"
-systemctl --user enable syncthing.service
-systemctl --user start syncthing.service
+systemctl --user enable dropbox.service
+systemctl --user start dropbox.service
 
-while [ ! -f ~/default/keepass.kdbx ]
+while [ ! -f ~/Dropbox/keepass.kdbx ]
 do
-	syncthing -browser-only
-	read -p "Please configure SyncThing "
+	curl \
+		--output dropbox.deb \
+		--location \
+		https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2020.03.04_amd64.deb
+	sudo dpkg -i dropbox.deb
+	read -p "Please run Dropbox from the application launcher and configure it"
 done
 
 if ! grep source-bashrc-d -lq .bashrc; then
@@ -39,8 +44,8 @@ for file in .bashrc.d/*.sh; do
 	source "$file"
 done
 
-gpg --import ~/default/master.key
-gpg --import ~/default/sub.key
+gpg --import ~/Dropbox/master.key
+gpg --import ~/Dropbox/sub.key
 
 keyGrip=$(gpg --list-keys --with-keygrip | grep -A 1 "\[A\]" | grep Keygrip | awk '{print $3}')
 while [ ! -f ~/.gpg2/sshcontrol ]
