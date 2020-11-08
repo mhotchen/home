@@ -15,19 +15,3 @@ module "mhn" {
   group   = "admin"
   pgp-key = "keybase:mhn"
 }
-
-data "template_file" "output" {
-  template = file("templates/account-output.tpl")
-
-  vars = {
-    name              = "mhn"
-    password          = module.mhn.password
-    access-key-id     = module.mhn.access-key-id
-    access-key-secret = module.mhn.access-key-secret
-  }
-}
-
-output "mhn-account" {
-  value = data.template_file.output.rendered
-}
-

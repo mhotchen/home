@@ -1,7 +1,6 @@
 resource "aws_s3_bucket" "terraform-state" {
   bucket = "64884c6f-e501-41ae-bbdc-b17b81285d81"
   acl    = "private"
-  region = "eu-west-2"
 
   versioning {
     enabled = true
