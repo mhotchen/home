@@ -62,3 +62,7 @@ if [ ! $(which aws) ]; then
 	sudo ./aws/install
 	rm -rf ./aws
 fi
+
+if [ ! -f ~/Services/README.md ]; then
+	git clone ssh://git-codecommit.eu-west-2.amazonaws.com/v1/repos/Services ~/Services
+fi

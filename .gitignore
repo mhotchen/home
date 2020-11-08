@@ -18,4 +18,6 @@
 !.gpg2
 !.gpg2/gpg-agent.conf
 !.vimrc
+!.ssh
+!.ssh/config
 !README.md
