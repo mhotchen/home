@@ -5,6 +5,7 @@ sudo apt upgrade
 sudo apt install --yes \
 	curl \
 	git \
+	git-crypt \
 	keepassx \
 	krita \
 	qmapshack \
