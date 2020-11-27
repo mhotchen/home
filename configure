@@ -30,17 +30,17 @@ do
 	read -p "Please run Dropbox from the application launcher and configure it"
 done
 
-if ! grep source-bashrc-d -lq .bashrc; then
+if ! grep source-bashrc-d -lq ~/.bashrc; then
 	cat <<- EOF >> .bashrc
 
 		# source-bashrc-d
-		for file in .bashrc.d/*.sh; do
+		for file in ~/.bashrc.d/*.sh; do
 			source "\$file"
 		done
 	EOF
 fi
 
-for file in .bashrc.d/*.sh; do
+for file in ~/.bashrc.d/*.sh; do
 	source "$file"
 done
 
