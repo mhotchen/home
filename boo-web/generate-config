@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Used to generate the config file
+# Usage:
+#
+# ./generate-config [env]
+
+set -euo pipefail
+
+. $(dirname "$0")/../boo-lib/bash/lib.sh
+
+userPoolParams=$(ssmParamList "$1" "boo-users")
+cognitoClientId=$(ssmParamListValue "/$1/boo-users/cognito-client-web-id" "$userPoolParams")
+
+apiParams=$(ssmParamList "$1" "boo-api")
+apiDomainName=$(ssmParamListValue "/$1/boo-api/domain-name" "$apiParams")
+apiKey=$(ssmParamListValue "/$1/boo-api/rest-api-key" "$apiParams")
+
+cat >src/config.ts <<EOF
+export default {
+  region: "eu-west-2",
+  cognitoClientId: "${cognitoClientId}",
+  apiDomainName: "${apiDomainName}",
+  apiKey: "${apiKey}",
+}
+EOF

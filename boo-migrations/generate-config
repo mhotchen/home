@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Used to generate the config file
+# Usage:
+#
+# ./generate-config [env]
+
+set -euo pipefail
+
+. $(dirname "$0")/../boo-lib/bash/lib.sh
+
+dbParams=$(ssmParamList "$1" "boo-db")
+dbHost=$(ssmParamListValue "/$1/boo-db/db-host" "$dbParams")
+dbPort=$(ssmParamListValue "/$1/boo-db/db-port" "$dbParams")
+dbName=$(ssmParamListValue "/$1/boo-db/db-name" "$dbParams")
+username=$(ssmParamListValue "/$1/boo-db/username" "$dbParams")
+password=$(ssmParamListValue "/$1/boo-db/password" "$dbParams")
+
+cat >ormconfig.json <<EOF
+{
+  "type": "postgres",
+  "host": "${dbHost}",
+  "port": "${dbPort}",
+  "database": "${dbName}",
+  "username": "${username}",
+  "password": "${password}",
+  "migrations": ["migrations/*.ts"],
+  "cli": {
+      "migrationsDir": "migrations"
+  }
+}
+EOF
+

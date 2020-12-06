@@ -1,0 +1,17 @@
+{
+  "name": "@boo/serverless-responses",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "config": {
+    "dev": true
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.64"
+  }
+}
