@@ -10,12 +10,14 @@ sudo apt install --yes \
 	krita \
 	qmapshack \
 	python3-gpg \
+	python3-pip \
 	vim \
 	virtualbox \
 	vlc
 sudo apt autoremove
 snap install spotify
 snap install --classic intellij webstorm datagrip slack
+pip3 install sigal[all]
 git config --global user.email "m@mhn.me"
 git config --global user.name "Matthew Hotchen"
 systemctl --user enable dropbox.service
@@ -86,4 +88,20 @@ fi
 
 if [ ! $(which node) ]; then
 	curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.1/install.sh | bash
+fi
+
+if [ ! $(which jq) ]; then
+	# Install jq
+	curl --silent --location --remote-name "https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64"
+	chmod a+x jq-linux64
+	mv jq-linux64 ~/.local/bin/jq
+fi
+
+if [ ! -f /etc/sysctl.d/custom-inotify.conf ]; then
+	sudo sh -c 'echo "fs.inotify.max_user_watches = 1048576" > /etc/sysctl.d/custom-inotify.conf'
+	sudo sysctl -p --system
+fi
+
+if [ ! -d ~/photos ]; then
+	aws s3 sync s3://c54e80e7-fc58-48db-ac87-5fef67069a2d ~/photos --profile personal
 fi

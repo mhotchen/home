@@ -18,6 +18,8 @@
 !.gpg2
 !.gpg2/gpg-agent.conf
 !.vimrc
+!.ideavimrc
 !.ssh
 !.ssh/config
 !README.md
+!build-reality

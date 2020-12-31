@@ -1,0 +1,5 @@
+#!/bin/bash
+
+aws s3 sync photos/ s3://c54e80e7-fc58-48db-ac87-5fef67069a2d --acl public-read --profile personal
+sigal build -c photos/reality/sigal.conf.py photos/reality reality
+aws s3 sync reality s3://reality-mhn-me --delete --acl public-read --profile personal
