@@ -35,4 +35,5 @@ MiscSearchDialogOpacity=100
 MiscShowUnsafePasteDialog=TRUE
 TabActivityColor=#dc322f
 TitleMode=TERMINAL_TITLE_PREPEND
+ScrollingUnlimited=TRUE
 
