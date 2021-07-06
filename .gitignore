@@ -23,3 +23,5 @@
 !.ssh/config
 !README.md
 !build-reality
+!.vim
+!.vim/coc-settings.json
