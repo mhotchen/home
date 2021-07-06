@@ -1,11 +1,7 @@
 [Configuration]
 ColorForeground=#839496
 ColorBackground=#002b36
-ColorCursor=#93a1a1
-ColorBold=#93a1a1
-ColorBoldUseDefault=FALSE
-ColorPalette=#073642;#dc322f;#859900;#b58900;#268bd2;#d33682;#2aa198;#eee8d5;#002b36;#cb4b16;#586e75;#657b83;#839496;#6c71c4;#93a1a1;#fdf6e3
-FontName=DejaVu Sans Mono 9
+FontName=DejaVu Sans Mono 10
 MiscAlwaysShowTabs=FALSE
 MiscBell=FALSE
 MiscBellUrgent=FALSE
@@ -33,7 +29,11 @@ MiscSlimTabs=FALSE
 MiscNewTabAdjacent=FALSE
 MiscSearchDialogOpacity=100
 MiscShowUnsafePasteDialog=TRUE
-TabActivityColor=#dc322f
 TitleMode=TERMINAL_TITLE_PREPEND
 ScrollingUnlimited=TRUE
+ColorCursor=#93a1a1
+ColorBold=#93a1a1
+ColorBoldUseDefault=FALSE
+ColorPalette=#073642;#dc322f;#859900;#b58900;#268bd2;#d33682;#2aa198;#eee8d5;#002b36;#cb4b16;#586e75;#657b83;#839496;#6c71c4;#93a1a1;#fdf6e3
+TabActivityColor=#dc322f
 
